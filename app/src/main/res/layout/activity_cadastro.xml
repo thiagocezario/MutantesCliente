@@ -26,7 +26,7 @@
             android:textSize="36sp" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/mutantPhoto"
             android:layout_width="286dp"
             android:layout_height="232dp"
             android:layout_weight="1"
@@ -34,7 +34,7 @@
             tools:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <EditText
-            android:id="@+id/nomeMutante"
+            android:id="@+id/mutantName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/habilidadeMutante"
+            android:id="@+id/mutantAbility"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,11 +52,11 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/saveNewMutant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Salvar" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

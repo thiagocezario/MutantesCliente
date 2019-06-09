@@ -6,4 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Novo mutante"
+            android:textAlignment="center"
+            android:textSize="36sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="286dp"
+            android:layout_height="232dp"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars[0]" />
+
+        <EditText
+            android:id="@+id/nomeMutante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Nome do mutante"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/habilidadeMutante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Habilidade do mutante"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

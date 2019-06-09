@@ -74,7 +74,7 @@ public class Dashboard extends AppCompatActivity {
         Intent intent = new Intent(
                 Dashboard.this, Cadastro.class
         );
-        startActivity(intent);0
+        startActivity(intent);
     }
 
     private void exitApp() {

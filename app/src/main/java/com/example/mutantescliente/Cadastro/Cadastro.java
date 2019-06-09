@@ -1,7 +1,9 @@
-package com.example.mutantescliente;
+package com.example.mutantescliente.Cadastro;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.mutantescliente.R;
 
 public class Cadastro extends AppCompatActivity {
 

@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Cadastro"></activity>
-        <activity android:name=".Dashboard" />
+        <activity android:name=".Cadastro.Cadastro"></activity>
+        <activity android:name=".Dashboard.Dashboard" />
         <activity android:name=".SplashScreen">
 
             android:theme="@style/AppTheme.Fullscreen">
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Login.Login" />
     </application>
 
 </manifest>

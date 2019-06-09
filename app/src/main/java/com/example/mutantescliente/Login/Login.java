@@ -1,4 +1,4 @@
-package com.example.mutantescliente;
+package com.example.mutantescliente.Login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.mutantescliente.Dashboard.Dashboard;
+import com.example.mutantescliente.R;
+
+public class Login extends AppCompatActivity {
 
     private Button loginButton;
     private EditText idField;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void doLogin() {
         Intent intent = new Intent(
-                MainActivity.this, Dashboard.class
+                Login.this, Dashboard.class
         );
         startActivity(intent);
         finish();

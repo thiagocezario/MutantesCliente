@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.mutantescliente.Login.Login;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private void showLoginScreen() {
         Intent intent = new Intent(
-                SplashScreen.this, MainActivity.class
+                SplashScreen.this, Login.class
         );
         startActivity(intent);
         finish();

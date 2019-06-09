@@ -27,11 +27,11 @@
 
         <EditText
             android:id="@+id/idField"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="Usuario"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Usuario" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/passwordField"

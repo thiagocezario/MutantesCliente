@@ -6,47 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
-    <Button
-        android:id="@+id/newMutantButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        app:layout_constraintBottom_toTopOf="@+id/listMutantsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/listMutantsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Listar"
-        app:layout_constraintBottom_toTopOf="@+id/searchMutantsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newMutantButton" />
-
-    <Button
-        android:id="@+id/searchMutantsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Procurar"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listMutantsButton" />
-
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sair"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchMutantsButton" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/newMutantButton"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:text="Cadastrar" />
+
+        <Button
+            android:id="@+id/searchMutantsButton"
+            android:layout_width="206dp"
+            android:layout_height="67dp"
+            android:text="Procurar" />
+
+        <Button
+            android:id="@+id/listMutantsButton"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:text="Listar" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:text="Sair" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

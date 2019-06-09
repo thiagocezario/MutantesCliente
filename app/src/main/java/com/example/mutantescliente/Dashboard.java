@@ -8,6 +8,9 @@ import android.widget.Button;
 public class Dashboard extends AppCompatActivity {
 
     private Button exitButton;
+    private Button searchButton;
+    private Button newMutantButton;
+    private Button listMutantsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,3 +31,24 @@ public class Dashboard extends AppCompatActivity {
         System.exit(0);
     }
 }
+/*
+loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+        doLogin();
+        }
+        });
+
+        idField = findViewById(R.id.idField);
+        passwordField = findViewById(R.id.passwordField);
+
+        }
+
+private void doLogin() {
+        Intent intent = new Intent(
+        MainActivity.this, Dashboard.class
+        );
+                startActivity(intent);
+                finish();
+                }

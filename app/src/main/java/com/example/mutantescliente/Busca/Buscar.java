@@ -19,8 +19,8 @@ public class Buscar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
 
-        mutantAbility = findViewById(R.id.mutantFirstAbility);
-        searchMutants = findViewById(R.id.searchMutantsButton);
+        mutantAbility = findViewById(R.id.mutantAbility);
+        searchMutants = findViewById(R.id.searchMutants);
 
         searchMutants.setOnClickListener(new View.OnClickListener() {
             @Override

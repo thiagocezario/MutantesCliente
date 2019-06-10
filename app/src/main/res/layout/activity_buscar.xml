@@ -24,15 +24,14 @@
             android:textSize="36sp" />
 
         <EditText
-            android:id="@+id/mutantFirstAbility"
+            android:id="@+id/mutantAbility"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Habilidade"
             android:ems="10"
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/searchMutatns"
+            android:id="@+id/searchMutants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Buscar" />

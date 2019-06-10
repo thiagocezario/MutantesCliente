@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mutantescliente.Busca.Buscar;
 import com.example.mutantescliente.Cadastro.Cadastro;
 import com.example.mutantescliente.R;
 
@@ -75,7 +76,7 @@ public class Dashboard extends AppCompatActivity {
 
     private void searchMutant() {
         Intent intent = new Intent(
-                Dashboard.this, Cadastro.class
+                Dashboard.this, Buscar.class
         );
         startActivity(intent);
     }

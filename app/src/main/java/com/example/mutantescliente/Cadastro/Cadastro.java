@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,6 +24,11 @@ import java.io.InputStream;
 public class Cadastro extends AppCompatActivity {
 
     private ImageView mutantPhoto;
+    private EditText mutantFirstAbility;
+    private EditText mutantSecondAbility;
+    private EditText mutantThirdAbility;
+    private Button saveNewMutant;
+
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
     @Override
@@ -30,6 +37,10 @@ public class Cadastro extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         mutantPhoto = findViewById(R.id.mutantPhoto);
+        mutantFirstAbility = findViewById(R.id.mutantFirstAbility);
+        mutantSecondAbility = findViewById(R.id.mutantSecondAbility);
+        mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
+        saveNewMutant = findViewById(R.id.saveNewMutant);
 
         setupListeners();
     }

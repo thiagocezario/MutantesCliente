@@ -43,11 +43,27 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/mutantAbility"
+            android:id="@+id/mutantFirstAbility"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="Habilidade do mutante"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/mutantSecondAbility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/mutantThirdAbility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName" />
 

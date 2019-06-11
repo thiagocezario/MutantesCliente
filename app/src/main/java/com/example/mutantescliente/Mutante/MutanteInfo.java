@@ -1,4 +1,4 @@
-package com.example.mutantescliente.Cadastro;
+package com.example.mutantescliente.Mutante;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mutantescliente.Login.Usuario;
@@ -21,13 +22,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class Cadastro extends AppCompatActivity {
-
+public class MutanteInfo extends AppCompatActivity {
+    private TextView viewStatus;
     private ImageView mutantPhoto;
     private EditText mutantFirstAbility;
     private EditText mutantSecondAbility;
     private EditText mutantThirdAbility;
     private Button saveNewMutant;
+
+    private Bundle bundle;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
@@ -36,16 +39,30 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+        Intent intent = getIntent();
+        bundle = intent.getBundleExtra("data");
+
+        viewStatus = findViewById(R.id.viewStatus);
         mutantPhoto = findViewById(R.id.mutantPhoto);
         mutantFirstAbility = findViewById(R.id.mutantFirstAbility);
         mutantSecondAbility = findViewById(R.id.mutantSecondAbility);
         mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
         saveNewMutant = findViewById(R.id.saveNewMutant);
-        System.out.println(Usuario.getUsuario().getUsername());
-        setupListeners();
+
+        setupView();
     }
 
-    private void setupListeners() {
+    private void setupView() {
+        if (bundle != null) {
+            viewStatus.setText("Editar Mutante");
+
+            setupEditMutantListeners();
+        } else {
+            setupCreateMutantListeners();
+        }
+    }
+
+    private void setupCreateMutantListeners() {
         mutantPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +78,10 @@ public class Cadastro extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
             }
         });
+    }
+
+    private void setupEditMutantListeners() {
+        
     }
 
     @Override

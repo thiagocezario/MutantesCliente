@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void doLogin() {
+        Usuario.getUsuario().setUsername(idField.getText().toString());
         Intent intent = new Intent(
                 Login.this, Dashboard.class
         );

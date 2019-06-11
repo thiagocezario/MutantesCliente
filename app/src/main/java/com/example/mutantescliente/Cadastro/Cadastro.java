@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.mutantescliente.Login.Usuario;
 import com.example.mutantescliente.R;
 
 import java.io.File;
@@ -40,7 +41,7 @@ public class Cadastro extends AppCompatActivity {
         mutantSecondAbility = findViewById(R.id.mutantSecondAbility);
         mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
         saveNewMutant = findViewById(R.id.saveNewMutant);
-
+        System.out.println(Usuario.getUsuario().getUsername());
         setupListeners();
     }
 

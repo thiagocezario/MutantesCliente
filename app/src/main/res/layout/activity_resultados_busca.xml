@@ -8,16 +8,24 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="106dp">
 
         <TableRow
             android:id="@+id/mutantResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mutantPhotoResult"
+                android:layout_width="104dp"
+                android:layout_height="65dp"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
 
             <TextView
                 android:id="@+id/mutantName"
-                android:layout_width="match_parent"
+                android:layout_width="308dp"
                 android:layout_height="match_parent"
                 android:text="Nome Mutante"
                 android:textSize="36sp" />

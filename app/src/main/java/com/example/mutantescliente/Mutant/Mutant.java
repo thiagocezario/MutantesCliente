@@ -1,6 +1,5 @@
 package com.example.mutantescliente.Mutant;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;

@@ -1,16 +1,15 @@
 package com.example.mutantescliente.Dashboard;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.mutantescliente.Mutant.Mutant;
-import com.example.mutantescliente.Search.Search;
-import com.example.mutantescliente.Mutant.MutantInfo;
 import com.example.mutantescliente.List.List;
+import com.example.mutantescliente.Mutant.MutantInfo;
 import com.example.mutantescliente.R;
+import com.example.mutantescliente.Search.Search;
 
 public class Dashboard extends AppCompatActivity {
 

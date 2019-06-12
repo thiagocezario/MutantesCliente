@@ -32,7 +32,9 @@ public class MutantInfo extends AppCompatActivity {
     private EditText mutantFirstAbility;
     private EditText mutantSecondAbility;
     private EditText mutantThirdAbility;
-    private Button saveNewMutant;
+    private Button saveMutant;
+
+    private Mutant mutant;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
@@ -42,24 +44,36 @@ public class MutantInfo extends AppCompatActivity {
         setContentView(R.layout.activity_mutant_info);
 
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("data");
+        mutant = (Mutant)intent.getSerializableExtra("mutant");
 
+        initialize();
+        setupView();
+    }
+
+    private void initialize() {
         viewStatus = findViewById(R.id.viewStatus);
         mutantPhoto = findViewById(R.id.mutantPhoto);
         mutantName = findViewById(R.id.mutantName);
         mutantFirstAbility = findViewById(R.id.mutantFirstAbility);
         mutantSecondAbility = findViewById(R.id.mutantSecondAbility);
         mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
-        saveNewMutant = findViewById(R.id.saveNewMutant);
-
-        setupView(bundle);
+        saveMutant = findViewById(R.id.saveMutant);
     }
 
-    private void setupView(Bundle bundle) {
-        if (bundle != null) {
+    private void setupView() {
+        if (mutant != null) {
             viewStatus.setText("Editar Mutant");
 
-            setupEditMutantListeners(bundle);
+            mutantName.setText(mutant.name);
+            mutantFirstAbility.setText(mutant.abilities[0]);
+            mutantSecondAbility.setText(mutant.abilities[1]);
+            mutantThirdAbility.setText(mutant.abilities[2]);
+
+            if (mutant.photo != null) {
+                mutantPhoto.setImageDrawable(mutant.photo);
+            }
+
+            setupEditMutantListeners();
         } else {
             setupCreateMutantListeners();
         }
@@ -71,9 +85,9 @@ public class MutantInfo extends AppCompatActivity {
         setSaveOnClickListener();
     }
 
-    private void setupEditMutantListeners(Bundle bundle) {
+    private void setupEditMutantListeners() {
 
-
+        setEditOnClickListener();
         setPhotoOnClickListener();
     }
 
@@ -96,10 +110,10 @@ public class MutantInfo extends AppCompatActivity {
     }
 
     private void setSaveOnClickListener() {
-        saveNewMutant.setOnClickListener(new View.OnClickListener() {
+        saveMutant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mutant mutant = getMutant();
+                setMutant();
 
                 String json = writeToJson(mutant);
             }
@@ -107,19 +121,17 @@ public class MutantInfo extends AppCompatActivity {
     }
 
     private void setEditOnClickListener() {
-        saveNewMutant.setOnClickListener(new View.OnClickListener() {
+        saveMutant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mutant mutant = getMutant();
+                setMutant();
 
                 String json = writeToJson(mutant);
             }
         });
     }
 
-    private Mutant getMutant() {
-        Mutant mutant = new Mutant();
-
+    private void setMutant() {
         String name = mutantName.getText().toString();
         String[] abilities = new String[3];
         abilities[0] = mutantFirstAbility.getText().toString();
@@ -128,11 +140,13 @@ public class MutantInfo extends AppCompatActivity {
 
         Drawable photo = mutantPhoto.getDrawable();
 
+        if (mutant == null) {
+            mutant = new Mutant();
+        }
+
         mutant.name = name;
         mutant.abilities = abilities;
         mutant.photo = photo;
-
-        return mutant;
     }
 
     private String writeToJson(Mutant mutant) {

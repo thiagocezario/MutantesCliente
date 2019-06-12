@@ -68,7 +68,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/saveNewMutant"
+            android:id="@+id/saveMutant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

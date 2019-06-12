@@ -1,20 +1,11 @@
 package com.example.mutantescliente.Login;
 
 public class Usuario {
-    private static String username;
-    private static Usuario user = new Usuario();
+    public String username;
+    public String password;
+    private static Usuario user;
 
-    private Usuario() {
-        this.username = "";
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
+    private Usuario() {}
 
     synchronized public static Usuario getUsuario() {
         if (user == null) {

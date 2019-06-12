@@ -81,7 +81,7 @@ public class MutanteInfo extends AppCompatActivity {
     }
 
     private void setupEditMutantListeners() {
-        
+
     }
 
     @Override

@@ -10,6 +10,9 @@ import android.widget.EditText;
 import com.example.mutantescliente.Dashboard.Dashboard;
 import com.example.mutantescliente.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Login extends AppCompatActivity {
 
     private Button loginButton;
@@ -35,7 +38,21 @@ public class Login extends AppCompatActivity {
     }
 
     private void doLogin() {
-        Usuario.getUsuario().setUsername(idField.getText().toString());
+        String username = idField.getText().toString();
+        String password = passwordField.getText().toString();
+
+        Usuario usuario = Usuario.getUsuario();
+        usuario.username = username;
+        usuario.password = password;
+
+        JSONObject user = new JSONObject();
+
+        try {
+            user.put("User",usuario);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent(
                 Login.this, Dashboard.class
         );

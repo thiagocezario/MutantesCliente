@@ -1,15 +1,15 @@
 package com.example.mutantescliente.Login;
 
-public class Usuario {
+public class User {
     public String username;
     public String password;
-    private static Usuario user;
+    private static User user;
 
-    private Usuario() {}
+    private User() {}
 
-    synchronized public static Usuario getUsuario() {
+    synchronized public static User getUser() {
         if (user == null) {
-            user = new Usuario();
+            user = new User();
         }
 
         return user;

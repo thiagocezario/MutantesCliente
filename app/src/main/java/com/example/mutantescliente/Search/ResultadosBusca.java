@@ -1,4 +1,4 @@
-package com.example.mutantescliente.Busca;
+package com.example.mutantescliente.Search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

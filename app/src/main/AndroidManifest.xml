@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Fullscreen">
 
-        <activity android:name=".Lista.Listar" />
-        <activity android:name=".Busca.ResultadosBusca" />
-        <activity android:name=".Busca.Buscar" />
-        <activity android:name=".Mutante.MutanteInfo" />
+        <activity android:name=".List.List" />
+        <activity android:name=".Search.ResultadosBusca" />
+        <activity android:name=".Search.Search" />
+        <activity android:name=".Mutant.MutantInfo" />
         <activity android:name=".Dashboard.Dashboard" />
         <activity android:name=".SplashScreen">
             <intent-filter>

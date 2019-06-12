@@ -1,10 +1,13 @@
-package com.example.mutantescliente.Mutante;
+package com.example.mutantescliente.Mutant;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mutantescliente.Login.Usuario;
 import com.example.mutantescliente.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class MutanteInfo extends AppCompatActivity {
+public class MutantInfo extends AppCompatActivity {
     private TextView viewStatus;
     private ImageView mutantPhoto;
+    private EditText mutantName;
     private EditText mutantFirstAbility;
     private EditText mutantSecondAbility;
     private EditText mutantThirdAbility;
@@ -37,13 +43,14 @@ public class MutanteInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_mutant_info);
 
         Intent intent = getIntent();
         bundle = intent.getBundleExtra("data");
 
         viewStatus = findViewById(R.id.viewStatus);
         mutantPhoto = findViewById(R.id.mutantPhoto);
+        mutantName = findViewById(R.id.mutantName);
         mutantFirstAbility = findViewById(R.id.mutantFirstAbility);
         mutantSecondAbility = findViewById(R.id.mutantSecondAbility);
         mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
@@ -54,7 +61,7 @@ public class MutanteInfo extends AppCompatActivity {
 
     private void setupView() {
         if (bundle != null) {
-            viewStatus.setText("Editar Mutante");
+            viewStatus.setText("Editar Mutant");
 
             setupEditMutantListeners();
         } else {
@@ -63,6 +70,16 @@ public class MutanteInfo extends AppCompatActivity {
     }
 
     private void setupCreateMutantListeners() {
+
+        setPhotoOnClickListener();
+        setSaveOnClickListener();
+    }
+
+    private void setupEditMutantListeners() {
+        setPhotoOnClickListener();
+    }
+
+    private void setPhotoOnClickListener() {
         mutantPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,8 +97,46 @@ public class MutanteInfo extends AppCompatActivity {
         });
     }
 
-    private void setupEditMutantListeners() {
+    private void setSaveOnClickListener() {
+        saveNewMutant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Mutant mutant = getMutant();
 
+                String json = writeToJson(mutant);
+            }
+        });
+    }
+
+    private Mutant getMutant() {
+        Mutant mutant = new Mutant();
+
+        String name = mutantName.getText().toString();
+        String[] abilities = new String[3];
+        abilities[0] = mutantFirstAbility.getText().toString();
+        abilities[1] = mutantSecondAbility.getText().toString();
+        abilities[2] = mutantThirdAbility.getText().toString();
+
+        Drawable photo =5 mutantPhoto.getDrawable();
+
+        mutant.name = name;
+        mutant.abilities = abilities;
+        mutant.photo = photo;
+
+        return mutant;
+    }
+
+    private String writeToJson(Mutant mutant) {
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("Mutante", mutant);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
     }
 
     @Override

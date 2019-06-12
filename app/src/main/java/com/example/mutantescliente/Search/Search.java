@@ -1,4 +1,4 @@
-package com.example.mutantescliente.Busca;
+package com.example.mutantescliente.Search;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.example.mutantescliente.R;
 
-public class Buscar extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
     private Button searchMutants;
     private EditText mutantAbility;
@@ -17,7 +17,7 @@ public class Buscar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buscar);
+        setContentView(R.layout.activity_search);
 
         mutantAbility = findViewById(R.id.mutantAbility);
         searchMutants = findViewById(R.id.searchMutants);
@@ -31,7 +31,7 @@ public class Buscar extends AppCompatActivity {
     }
 
     private void displayResults() {
-        Intent intent = new Intent(Buscar.this, ResultadosBusca.class);
+        Intent intent = new Intent(Search.this, ResultadosBusca.class);
 
         startActivity(intent);
     }

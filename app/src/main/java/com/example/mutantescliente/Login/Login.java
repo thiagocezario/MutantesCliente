@@ -41,14 +41,14 @@ public class Login extends AppCompatActivity {
         String username = idField.getText().toString();
         String password = passwordField.getText().toString();
 
-        Usuario usuario = Usuario.getUsuario();
-        usuario.username = username;
-        usuario.password = password;
+        User user = User.getUser();
+        user.username = username;
+        user.password = password;
 
-        JSONObject user = new JSONObject();
+        JSONObject userJson = new JSONObject();
 
         try {
-            user.put("User",usuario);
+            userJson.put("User", user);
         } catch (JSONException e) {
             e.printStackTrace();
         }

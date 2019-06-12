@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.Search.Search;
 import com.example.mutantescliente.Mutant.MutantInfo;
 import com.example.mutantescliente.List.List;
@@ -65,6 +66,7 @@ public class Dashboard extends AppCompatActivity {
         Intent intent = new Intent(
                 Dashboard.this, MutantInfo.class
         );
+
         startActivity(intent);
     }
 

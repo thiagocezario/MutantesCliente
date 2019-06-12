@@ -52,7 +52,9 @@ public class Login extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    private void callDashboard() {
         Intent intent = new Intent(
                 Login.this, Dashboard.class
         );

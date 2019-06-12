@@ -36,8 +36,6 @@ public class MutantInfo extends AppCompatActivity {
     private EditText mutantThirdAbility;
     private Button saveNewMutant;
 
-    private Bundle bundle;
-
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
     @Override
@@ -46,7 +44,7 @@ public class MutantInfo extends AppCompatActivity {
         setContentView(R.layout.activity_mutant_info);
 
         Intent intent = getIntent();
-        bundle = intent.getBundleExtra("data");
+        Bundle bundle = intent.getBundleExtra("data");
 
         viewStatus = findViewById(R.id.viewStatus);
         mutantPhoto = findViewById(R.id.mutantPhoto);
@@ -56,14 +54,14 @@ public class MutantInfo extends AppCompatActivity {
         mutantThirdAbility = findViewById(R.id.mutantThirdAbility);
         saveNewMutant = findViewById(R.id.saveNewMutant);
 
-        setupView();
+        setupView(bundle);
     }
 
-    private void setupView() {
+    private void setupView(Bundle bundle) {
         if (bundle != null) {
             viewStatus.setText("Editar Mutant");
 
-            setupEditMutantListeners();
+            setupEditMutantListeners(bundle);
         } else {
             setupCreateMutantListeners();
         }
@@ -75,7 +73,9 @@ public class MutantInfo extends AppCompatActivity {
         setSaveOnClickListener();
     }
 
-    private void setupEditMutantListeners() {
+    private void setupEditMutantListeners(Bundle bundle) {
+
+
         setPhotoOnClickListener();
     }
 
@@ -108,6 +108,17 @@ public class MutantInfo extends AppCompatActivity {
         });
     }
 
+    private void setEditOnClickListener() {
+        saveNewMutant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Mutant mutant = getMutant();
+
+                String json = writeToJson(mutant);
+            }
+        });
+    }
+
     private Mutant getMutant() {
         Mutant mutant = new Mutant();
 
@@ -117,7 +128,7 @@ public class MutantInfo extends AppCompatActivity {
         abilities[1] = mutantSecondAbility.getText().toString();
         abilities[2] = mutantThirdAbility.getText().toString();
 
-        Drawable photo =5 mutantPhoto.getDrawable();
+        Drawable photo = mutantPhoto.getDrawable();
 
         mutant.name = name;
         mutant.abilities = abilities;

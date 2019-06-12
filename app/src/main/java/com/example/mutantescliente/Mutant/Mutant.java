@@ -3,7 +3,9 @@ package com.example.mutantescliente.Mutant;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
-public class Mutant {
+import java.io.Serializable;
+
+public class Mutant implements Serializable {
     public String name;
     public String[] abilities;
     public Drawable photo;

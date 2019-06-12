@@ -65,9 +65,9 @@ public class MutantInfo extends AppCompatActivity {
             viewStatus.setText("Editar Mutant");
 
             mutantName.setText(mutant.name);
-            mutantFirstAbility.setText(mutant.abilities[0]);
-            mutantSecondAbility.setText(mutant.abilities[1]);
-            mutantThirdAbility.setText(mutant.abilities[2]);
+            mutantFirstAbility.setText(mutant.ability1);
+            mutantSecondAbility.setText(mutant.ability2);
+            mutantThirdAbility.setText(mutant.ability3);
 
             if (mutant.photo != null) {
                 mutantPhoto.setImageDrawable(mutant.photo);
@@ -133,10 +133,9 @@ public class MutantInfo extends AppCompatActivity {
 
     private void setMutant() {
         String name = mutantName.getText().toString();
-        String[] abilities = new String[3];
-        abilities[0] = mutantFirstAbility.getText().toString();
-        abilities[1] = mutantSecondAbility.getText().toString();
-        abilities[2] = mutantThirdAbility.getText().toString();
+        String ability1 = mutantFirstAbility.getText().toString();
+        String ability2 = mutantSecondAbility.getText().toString();
+        String ability3 = mutantThirdAbility.getText().toString();
 
         Drawable photo = mutantPhoto.getDrawable();
 
@@ -145,7 +144,9 @@ public class MutantInfo extends AppCompatActivity {
         }
 
         mutant.name = name;
-        mutant.abilities = abilities;
+        mutant.ability1 = ability1;
+        mutant.ability1 = ability2;
+        mutant.ability1 = ability3;
         mutant.photo = photo;
     }
 

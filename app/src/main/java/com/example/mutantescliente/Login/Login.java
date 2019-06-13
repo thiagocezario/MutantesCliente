@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
 
-    private static String authenticateUrl = "http://192.168.100.16:3000/authenticate?login=\"admin\"&password=\"admin\"";
+    private static String authenticateUrl = "http://192.168.100.16:3000/authenticate?login=admin&password=admin";
     private ProgressDialog alert;
     private RequestQueue requestQueue;
     public static final String REQUEST_TAG = "Login";
@@ -63,8 +63,8 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, authenticateUrl, new JSONObject(), this, this);
         jsonRequest.setTag(REQUEST_TAG);
 
-        requestQueue.add(jsonRequest);
-
+        //requestQueue.add(jsonRequest);
+        callDashboard();
         String username = idField.getText().toString();
         String password = passwordField.getText().toString();
 
@@ -95,6 +95,7 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
     public void onErrorResponse(VolleyError error) {
         error.printStackTrace();
         alert.dismiss();
+        callDashboard();
     }
 
     @Override

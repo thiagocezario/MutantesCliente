@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -65,10 +66,10 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         user.username = username;
         user.password = password;
 
-        authenticateUrl = authenticateUrl.concat("?login="+username+"&password="+password);
+        String url = authenticateUrl.concat("?login="+username+"&password="+password);
 
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, authenticateUrl, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, new JSONObject(), this, this);
         jsonRequest.setTag(REQUEST_TAG);
 
         requestQueue.add(jsonRequest);
@@ -86,7 +87,7 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        error.printStackTrace();
+        Toast.makeText(this, "Login Inválido", Toast.LENGTH_LONG).show();
         alert.dismiss();
     }
 

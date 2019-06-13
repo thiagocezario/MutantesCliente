@@ -3,12 +3,14 @@ package com.example.mutantescliente.Mutant;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import com.example.mutantescliente.Volley.VolleyRequestQueue;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -155,7 +158,17 @@ public class MutantInfo extends AppCompatActivity implements Response.Listener, 
         String ability2 = mutant.ability2;
         String ability3 = mutant.ability3;
 
-        return url.concat("?name="+name+"&photo=abc.png&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
+        if (mutant.photo != null) {
+            Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            String encodedImage = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+
+            return url.concat("?name="+name+"&photo="+encodedImage+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
+        }
+
+        return url.concat("?name="+name+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
     }
 
     private void setMutant() {

@@ -30,7 +30,6 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
     private static String authenticateUrl = "http://192.168.100.16:3000/authenticate";
     private ProgressDialog alert;
     private RequestQueue requestQueue;
-    public static final String REQUEST_TAG = "Login";
 
     private Button loginButton;
     private EditText idField;
@@ -70,7 +69,6 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
 
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, new JSONObject(), this, this);
-        jsonRequest.setTag(REQUEST_TAG);
 
         requestQueue.add(jsonRequest);
         //callDashboard();

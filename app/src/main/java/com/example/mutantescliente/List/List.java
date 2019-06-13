@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class List extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     private static String listUrl = "http://192.168.100.16:3000/list";
-    private static String REQUEST_TAG = "List";
 
     private ProgressDialog alert;
     private RequestQueue requestQueue;
@@ -56,8 +55,6 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
                 alert.dismiss();
             }
         });
-
-        jsonArrayRequest.setTag(REQUEST_TAG);
 
         requestQueue.add(jsonArrayRequest);
     }

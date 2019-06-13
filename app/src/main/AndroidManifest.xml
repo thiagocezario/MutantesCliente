@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.Fullscreen">
 
         <activity android:name=".List.List" />
-        <activity android:name=".Search.ResultadosBusca" />
+        <activity android:name=".Search.SearchResult" />
         <activity android:name=".Search.Search" />
         <activity android:name=".Mutant.MutantInfo" />
         <activity android:name=".Dashboard.Dashboard" />

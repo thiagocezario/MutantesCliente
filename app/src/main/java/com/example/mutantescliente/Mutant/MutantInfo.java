@@ -16,7 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.mutantescliente.R;
+import com.example.mutantescliente.ServiceHandler.ServiceHandler;
+import com.example.mutantescliente.Volley.VolleyRequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +31,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class MutantInfo extends AppCompatActivity {
+public class MutantInfo extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
+    public static String createUrl = "http://192.168.100.16:3000/register/mutant";
+    public static String updateUrl = "http://192.168.100.16:3000/update/mutant";
+    //"http://localhost:3000/register/mutant?name=Wolverine&photo=foto.png&skill1=Forte&skill2=bonito&skill3=rapido&id_user=1";
+    //"http://localhost:3000/update/mutant?name=GOHAN&skill1=JOGA%20AGUA&skill2=bebe%20leite&skill3=come%20bosta&photo=pe.png&id=1";
     private TextView viewStatus;
     private ImageView mutantPhoto;
     private EditText mutantName;
@@ -35,6 +45,7 @@ public class MutantInfo extends AppCompatActivity {
     private Button saveMutant;
 
     private Mutant mutant;
+    private RequestQueue requestQueue;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
@@ -114,8 +125,8 @@ public class MutantInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setMutant();
-
-                String json = writeToJson(mutant);
+                String url = setURLParameters(createUrl);
+                saveMutantWithUrl(url);
             }
         });
     }
@@ -125,10 +136,26 @@ public class MutantInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setMutant();
-
-                String json = writeToJson(mutant);
+                String url = setURLParameters(updateUrl);
+                saveMutantWithUrl(url);
             }
         });
+    }
+
+    private void saveMutantWithUrl(String url){
+        requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, url, new JSONObject(), this, this);
+
+        requestQueue.add(jsonRequest);
+    }
+
+    private String setURLParameters(String url) {
+        String name = mutant.name;
+        String ability1 = mutant.ability1;
+        String ability2 = mutant.ability2;
+        String ability3 = mutant.ability3;
+
+        return url.concat("?name="+name+"&photo=abc.png&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
     }
 
     private void setMutant() {
@@ -145,22 +172,9 @@ public class MutantInfo extends AppCompatActivity {
 
         mutant.name = name;
         mutant.ability1 = ability1;
-        mutant.ability1 = ability2;
-        mutant.ability1 = ability3;
+        mutant.ability2 = ability2;
+        mutant.ability3 = ability3;
         mutant.photo = photo;
-    }
-
-    private String writeToJson(Mutant mutant) {
-        JSONObject json = new JSONObject();
-
-        try {
-            json.put("Mutante", mutant);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return json.toString();
     }
 
     @Override
@@ -183,5 +197,15 @@ public class MutantInfo extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(this, "Algo deu errado!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(Object response) {
+        Toast.makeText(this, "Mutante salvo com sucesso", Toast.LENGTH_LONG).show();
     }
 }

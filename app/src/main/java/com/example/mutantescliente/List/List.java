@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
 import com.example.mutantescliente.ServiceHandler.ServiceHandler;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
@@ -24,7 +25,7 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
 
     private ProgressDialog alert;
     private RequestQueue requestQueue;
-    private ArrayList<Object> mutants = new ArrayList<>();
+    private ArrayList<Mutant> mutants = new ArrayList<>();
 
 
 

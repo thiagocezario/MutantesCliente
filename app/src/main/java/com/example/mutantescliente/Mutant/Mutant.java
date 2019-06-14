@@ -17,10 +17,20 @@ public class Mutant implements Serializable {
     public String skill2;
     @SerializedName("skill3")
     public String skill3;
-    @SerializedName("photo")
+    @SerializedName("photo1")
     public Drawable photo;
+    @SerializedName("photo")
+    public Object photo1;
     @SerializedName("user")
     public String creator;
+    @SerializedName("createdAt")
+    public String createdAt;
+    @SerializedName("updatedAt")
+    public String updatedAt;
+    @SerializedName("active")
+    public int active;
+    @SerializedName("id_user")
+    public int id_user;
 
     public Mutant() {
         name = "";

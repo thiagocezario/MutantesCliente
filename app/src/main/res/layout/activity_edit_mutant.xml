@@ -89,10 +89,24 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/editMutant"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salvar" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/deleteMutant"
+                android:layout_width="123dp"
+                android:layout_height="match_parent"
+                android:text="Excluir" />
+
+            <Button
+                android:id="@+id/editMutant"
+                android:layout_width="116dp"
+                android:layout_height="match_parent"
+                android:text="Salvar" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

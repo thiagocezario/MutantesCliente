@@ -31,7 +31,8 @@ import java.io.InputStream;
 
 public class EditMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     public static String updateUrl = "http://192.168.100.16:3000/update/mutant";
-    
+    public static String deleteUrl = "http://192.168.100.16:3000/delete/mutant";
+
     private TextView createdBy;
     private ImageView mutantPhoto;
     private EditText mutantName;
@@ -39,6 +40,7 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
     private EditText mutantSecondAbility;
     private EditText mutantThirdAbility;
     private Button editMutant;
+    private Button deleteMutant;
 
     private Mutant mutant;
     private RequestQueue requestQueue;
@@ -67,11 +69,19 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         mutantSecondAbility = findViewById(R.id.mutantAbility2);
         mutantThirdAbility = findViewById(R.id.mutantAbility3);
         editMutant = findViewById(R.id.editMutant);
+        deleteMutant = findViewById(R.id.deleteMutant);
+
+        deleteMutant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         editMutant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                editMutant();
             }
         });
     }
@@ -107,9 +117,16 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         });
     }
 
-    private void saveMutantWithUrl(String url){
+    private void deleteMutant() {
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, url, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.DELETE, deleteUrl, new JSONObject(), this, this);
+
+        requestQueue.add(jsonRequest);
+    }
+
+    private void editMutant(){
+        requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, updateUrl, new JSONObject(), this, this);
 
         requestQueue.add(jsonRequest);
     }

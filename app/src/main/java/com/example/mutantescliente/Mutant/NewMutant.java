@@ -27,16 +27,22 @@ import com.android.volley.VolleyError;
 import com.example.mutantescliente.R;
 import com.example.mutantescliente.ServiceHandler.ServiceHandler;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class NewMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    public static String createUrl = "http://192.168.100.16:3000/register/mutant";
+    public static String createUrl = "http://10.100.4.179:3000/register/mutant";
 
     private ImageView mutantPhoto;
     private EditText mutantName;
@@ -44,7 +50,7 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
     private EditText mutantSecondAbility;
     private EditText mutantThirdAbility;
     private Button saveMutant;
-
+    private JSONObject jsonBody = new JSONObject();
     private Mutant mutant;
     private RequestQueue requestQueue;
 
@@ -98,37 +104,51 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
             @Override
             public void onClick(View v) {
                 setMutant();
-                String url = setURLParameters(createUrl);
-                saveMutantWithUrl(url);
+                JSONObject params = setURLParameters(createUrl);
+                saveMutantWithUrl(params);
             }
         });
     }
 
-    private void saveMutantWithUrl(String url){
+    private void saveMutantWithUrl(JSONObject params){
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, url, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, createUrl, params, this, this);
+
 
         requestQueue.add(jsonRequest);
     }
 
-    private String setURLParameters(String url) {
+    private JSONObject setURLParameters(String url) {
+
+        HashMap<String, String>  params = new HashMap<String, String> ();
+
         String name = mutant.name;
         String ability1 = mutant.skill1;
         String ability2 = mutant.skill2;
         String ability3 = mutant.skill3;
 
-        if (mutant.photo != null) {
+        params.put("name", name);
+        params.put("skill1", ability1);
+        params.put("skill2", ability2);
+        params.put("skill3", ability3);
+        params.put("id_user", "1");
+        JSONObject jsonBody = new JSONObject(params);
+
+
+         if (mutant.photo != null) {
             Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream);
             byte[] bitmapdata = stream.toByteArray();
             String encodedImage = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
-
-            return url.concat("?name="+name+"&photo="+encodedImage+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
+            params.put("photo", encodedImage);
+            return new JSONObject(params) ;
+//            return url.concat("?name="+name+"&photo="+encodedImage+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
         }
-
-        return url.concat("?name="+name+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
-    }
+//
+//        return url.concat("?name="+name+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
+        return new JSONObject(params);
+    };
 
     private void setMutant() {
         String name = mutantName.getText().toString();
@@ -178,7 +198,17 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
 
     @Override
     public void onResponse(Object response) {
-        showAlert(response.toString());
+
+        try{
+            JSONObject jsonObject = new JSONObject(response.toString());
+            JSONObject message = jsonObject.getJSONObject("message");
+            showAlert(message.toString());
+        }catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Não foi possível abrir o alert", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void showAlert(String message) {

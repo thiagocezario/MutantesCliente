@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mutantescliente.Mutant.EditMutant;
 import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
 
@@ -29,7 +30,7 @@ public class SearchResult extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         Intent intent = getIntent();
-        mutants = (ArrayList<Mutant>)intent.getSerializableExtra("mutants");
+        mutants = (ArrayList)intent.getSerializableExtra("mutants");
 
         listView = findViewById(R.id.resultList);
 
@@ -57,7 +58,7 @@ public class SearchResult extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.search_list, null);
 
             ImageView imageView = convertView.findViewById(R.id.mutantListPhoto);
@@ -65,6 +66,15 @@ public class SearchResult extends AppCompatActivity {
 
             imageView.setImageDrawable(mutants.get(position).photo);
             textView.setText(mutants.get(position).name);
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchResult.this, EditMutant.class);
+                    intent.putExtra("mutant", mutants.get(position));
+                    startActivity(intent);
+                }
+            });
 
             return convertView;
         }

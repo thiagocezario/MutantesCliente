@@ -26,7 +26,6 @@ import com.example.mutantescliente.R;
 import com.example.mutantescliente.ServiceHandler.ServiceHandler;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -118,9 +117,9 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
 
     private String setURLParameters(String url) {
         String name = mutant.name;
-        String ability1 = mutant.ability1;
-        String ability2 = mutant.ability2;
-        String ability3 = mutant.ability3;
+        String ability1 = mutant.skill1;
+        String ability2 = mutant.skill2;
+        String ability3 = mutant.skill3;
 
         if (mutant.photo != null) {
             Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
@@ -148,9 +147,9 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
         }
 
         mutant.name = name;
-        mutant.ability1 = ability1;
-        mutant.ability2 = ability2;
-        mutant.ability3 = ability3;
+        mutant.skill1 = ability1;
+        mutant.skill2 = ability2;
+        mutant.skill3 = ability3;
         mutant.photo = photo;
     }
 

@@ -57,11 +57,9 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         mutant = (Mutant)intent.getSerializableExtra("mutant");
 
         initialize();
-        setupMutant();
     }
 
     private void initialize() {
-        setPhotoOnClickListener();
         createdBy = findViewById(R.id.createdBy);
         mutantPhoto = findViewById(R.id.mutantPhoto1);
         mutantName = findViewById(R.id.mutantName1);
@@ -74,7 +72,7 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         deleteMutant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteMutant();
             }
         });
 
@@ -84,15 +82,18 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
                 editMutant();
             }
         });
+
+        setupMutant();
+        setPhotoOnClickListener();
     }
 
     private void setupMutant() {
         createdBy.setText(mutant.creator);
 
         mutantName.setText(mutant.name);
-        mutantFirstAbility.setText(mutant.ability1);
-        mutantSecondAbility.setText(mutant.ability2);
-        mutantThirdAbility.setText(mutant.ability3);
+        mutantFirstAbility.setText(mutant.skill1);
+        mutantSecondAbility.setText(mutant.skill2);
+        mutantThirdAbility.setText(mutant.skill3);
 
         if (mutant.photo != null) {
             mutantPhoto.setImageDrawable(mutant.photo);
@@ -160,6 +161,6 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
 
     @Override
     public void onResponse(Object response) {
-        Toast.makeText(this, "Mutante salvo com sucesso", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Deu boa!", Toast.LENGTH_LONG).show();
     }
 }

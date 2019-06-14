@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +19,13 @@ import com.example.mutantescliente.List.List;
 import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Search extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     public static String searchUrl = "http://192.168.100.16:3000/search/mutant?skill=";
@@ -62,6 +66,12 @@ public class Search extends AppCompatActivity implements Response.Listener, Resp
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                Gson gson = gsonBuilder.create();
+
+                if (response.length() > 0) {
+                    mutants = new ArrayList<>(Arrays.asList(gson.fromJson(response.toString(), Mutant[].class)));
+                }
 
                 alert.dismiss();
                 displayResults();

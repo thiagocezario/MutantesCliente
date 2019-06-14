@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class NewMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    public static String createUrl = "http://10.100.4.179:3000/register/mutant";
+    public static String createUrl = "http://192.168.100.16:3000/register/mutant";
 
     private ImageView mutantPhoto;
     private EditText mutantName;
@@ -114,7 +114,6 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, createUrl, params, this, this);
 
-
         requestQueue.add(jsonRequest);
     }
 
@@ -136,17 +135,15 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
 
 
          if (mutant.photo != null) {
-            Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
+            Bitmap bitmap = mutant.photo;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream);
             byte[] bitmapdata = stream.toByteArray();
             String encodedImage = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
             params.put("photo", encodedImage);
             return new JSONObject(params) ;
-//            return url.concat("?name="+name+"&photo="+encodedImage+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
         }
-//
-//        return url.concat("?name="+name+"&skill1="+ability1+"&skill2="+ability2+"&skill3="+ability3+"&id_user=1");
+
         return new JSONObject(params);
     };
 
@@ -156,7 +153,7 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
         String ability2 = mutantSecondAbility.getText().toString();
         String ability3 = mutantThirdAbility.getText().toString();
 
-        Drawable photo = mutantPhoto.getDrawable();
+        Bitmap photo = mutantPhoto.getDrawingCache();
 
         if (mutant == null) {
             mutant = new Mutant();
@@ -201,19 +198,16 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
 
         try{
             JSONObject jsonObject = new JSONObject(response.toString());
-            JSONObject message = jsonObject.getJSONObject("message");
-            showAlert(message.toString());
+            String message = jsonObject.getString("message");
+            showAlert(message);
         }catch(JSONException e){
             e.printStackTrace();
             Toast.makeText(this, "Não foi possível abrir o alert", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void showAlert(String message) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("ERRO");
         b.setMessage(message);
         b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override

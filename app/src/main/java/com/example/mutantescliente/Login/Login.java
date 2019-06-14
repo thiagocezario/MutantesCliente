@@ -74,8 +74,6 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         JSONObject userJson = new JSONObject();
         try {
             userJson = new JSONObject(u1);
-            userJson.put("user", user.username);
-            userJson.put("password", password);
         } catch (JSONException e) {
 
         }
@@ -83,7 +81,7 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         String url = authenticateUrl.concat("?login="+username+"&password="+password);
 
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, userJson, this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, new JSONObject(), this, this);
 
         requestQueue.add(jsonRequest);
     }
@@ -102,7 +100,7 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle("ERRO");
-        b.setMessage(error.getMessage());
+        b.setMessage("Usuário e/ou senha inválidos");
         b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

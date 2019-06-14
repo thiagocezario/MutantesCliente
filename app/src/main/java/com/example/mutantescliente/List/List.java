@@ -132,7 +132,9 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
             ImageView imageView = convertView.findViewById(R.id.mutantListPhoto);
             TextView textView = convertView.findViewById(R.id.mutantListName);
 
-            imageView.setImageDrawable(mutants.get(position).photo);
+            mutants.get(position).decodePhoto();
+
+            imageView.setImageBitmap(mutants.get(position).photo);
             textView.setText(mutants.get(position).name);
 
             convertView.setOnClickListener(new View.OnClickListener() {

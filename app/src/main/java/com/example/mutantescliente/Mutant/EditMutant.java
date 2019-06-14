@@ -100,7 +100,7 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         mutantThirdAbility.setText(mutant.skill3);
 
         if (mutant.photo != null) {
-            mutantPhoto.setImageDrawable(mutant.photo);
+            mutantPhoto.setImageBitmap(mutant.photo);
         }
     }
 
@@ -124,7 +124,12 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
 
     private void deleteMutant() {
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.DELETE, deleteUrl, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.DELETE, deleteUrl, new JSONObject(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                finish();
+            }
+        }, this);
 
         requestQueue.add(jsonRequest);
     }

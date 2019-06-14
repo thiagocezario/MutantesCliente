@@ -1,12 +1,18 @@
 package com.example.mutantescliente.Search;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
@@ -26,6 +32,10 @@ public class SearchResult extends AppCompatActivity {
         mutants = (ArrayList<Mutant>)intent.getSerializableExtra("mutants");
 
         listView = findViewById(R.id.resultList);
+
+        CustomAdapter customAdapter = new CustomAdapter();
+        listView.setAdapter(customAdapter);
+
     }
 
 
@@ -48,7 +58,15 @@ public class SearchResult extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+            convertView = getLayoutInflater().inflate(R.layout.search_list, null);
+
+            ImageView imageView = convertView.findViewById(R.id.mutantListPhoto);
+            TextView textView = convertView.findViewById(R.id.mutantListName);
+
+            imageView.setImageDrawable(mutants.get(position).photo);
+            textView.setText(mutants.get(position).name);
+
+            return convertView;
         }
     }
 }

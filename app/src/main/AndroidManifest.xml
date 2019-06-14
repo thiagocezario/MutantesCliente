@@ -3,7 +3,7 @@
     package="com.example.mutantescliente">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Fullscreen">
-
+        <activity android:name=".Mutant.EditMutant"></activity>
         <activity android:name=".List.List" />
         <activity android:name=".Search.SearchResult" />
         <activity android:name=".Search.Search" />
-        <activity android:name=".Mutant.MutantInfo" />
+        <activity android:name=".Mutant.NewMutant" />
         <activity android:name=".Dashboard.Dashboard" />
         <activity android:name=".SplashScreen">
             <intent-filter>

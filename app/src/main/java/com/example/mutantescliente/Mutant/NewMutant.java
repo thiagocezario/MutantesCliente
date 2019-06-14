@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class MutantInfo extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
+public class NewMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     public static String createUrl = "http://192.168.100.16:3000/register/mutant";
     public static String updateUrl = "http://192.168.100.16:3000/update/mutant";
     //"http://localhost:3000/register/mutant?name=Wolverine&photo=foto.png&skill1=Forte&skill2=bonito&skill3=rapido&id_user=1";
@@ -57,9 +57,6 @@ public class MutantInfo extends AppCompatActivity implements Response.Listener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mutant_info);
 
-        Intent intent = getIntent();
-        mutant = (Mutant)intent.getSerializableExtra("mutant");
-
         initialize();
         setupView();
     }
@@ -75,34 +72,12 @@ public class MutantInfo extends AppCompatActivity implements Response.Listener, 
     }
 
     private void setupView() {
-        if (mutant != null) {
-            viewStatus.setText("Editar Mutant");
-
-            mutantName.setText(mutant.name);
-            mutantFirstAbility.setText(mutant.ability1);
-            mutantSecondAbility.setText(mutant.ability2);
-            mutantThirdAbility.setText(mutant.ability3);
-
-            if (mutant.photo != null) {
-                mutantPhoto.setImageDrawable(mutant.photo);
-            }
-
-            setupEditMutantListeners();
-        } else {
-            setupCreateMutantListeners();
-        }
+        setupCreateMutantListeners();
     }
 
     private void setupCreateMutantListeners() {
-
         setPhotoOnClickListener();
         setSaveOnClickListener();
-    }
-
-    private void setupEditMutantListeners() {
-
-        setEditOnClickListener();
-        setPhotoOnClickListener();
     }
 
     private void setPhotoOnClickListener() {
@@ -134,17 +109,6 @@ public class MutantInfo extends AppCompatActivity implements Response.Listener, 
         });
     }
 
-    private void setEditOnClickListener() {
-        saveMutant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setMutant();
-                String url = setURLParameters(updateUrl);
-                saveMutantWithUrl(url);
-            }
-        });
-    }
-
     private void saveMutantWithUrl(String url){
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, url, new JSONObject(), this, this);
@@ -161,7 +125,7 @@ public class MutantInfo extends AppCompatActivity implements Response.Listener, 
         if (mutant.photo != null) {
             Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream);
             byte[] bitmapdata = stream.toByteArray();
             String encodedImage = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
 

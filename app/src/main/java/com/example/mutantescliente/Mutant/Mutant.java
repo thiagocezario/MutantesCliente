@@ -11,6 +11,7 @@ public class Mutant implements Serializable {
     public String ability2;
     public String ability3;
     public Drawable photo;
+    public String creator;
 
     public Mutant() {
         name = "";

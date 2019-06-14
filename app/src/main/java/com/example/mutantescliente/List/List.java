@@ -1,6 +1,8 @@
 package com.example.mutantescliente.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +33,8 @@ import java.util.Arrays;
 public class List extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     private static String listUrl = "http://192.168.100.16:3000/list";
 
-    private ProgressDialog alert;
+    private ProgressDialog progressDialog;
+    private AlertDialog alertDialog;
     private RequestQueue requestQueue;
     private ArrayList<Mutant> mutants;
 
@@ -49,10 +52,10 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
     protected void onStart() {
         super.onStart();
 
-        alert = new ProgressDialog(List.this);
-        alert.setMessage("Aguarde...");
-        alert.setCancelable(false);
-        alert.show();
+        progressDialog = new ProgressDialog(List.this);
+        progressDialog.setMessage("Aguarde...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, listUrl, new JSONArray(), new Response.Listener<JSONArray>() {
@@ -65,7 +68,7 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
                     mutants = new ArrayList<>(Arrays.asList(gson.fromJson(response.toString(), Mutant[].class)));
                 }
 
-                alert.dismiss();
+                progressDialog.dismiss();
 
                 CustomAdapter customAdapter = new CustomAdapter();
                 list.setAdapter(customAdapter);
@@ -73,7 +76,8 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                alert.dismiss();
+                progressDialog.dismiss();
+                showAlert(error.toString());
             }
         });
 
@@ -81,13 +85,27 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
     }
 
     @Override
-    public void onResponse(Object response) {
-        alert.dismiss();
+    public void onErrorResponse(VolleyError error) {
+        showAlert(error.toString());
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
-        alert.dismiss();
+    public void onResponse(Object response) {
+    }
+
+    private void showAlert(String message) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("ERRO");
+        b.setMessage(message);
+        b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = b.create();
+        alertDialog.show();
     }
 
     class CustomAdapter extends BaseAdapter {

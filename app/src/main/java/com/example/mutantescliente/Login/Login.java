@@ -1,17 +1,14 @@
 package com.example.mutantescliente.Login;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,15 +19,14 @@ import com.example.mutantescliente.R;
 import com.example.mutantescliente.ServiceHandler.ServiceHandler;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
 
     private static String authenticateUrl = "http://192.168.100.16:3000/authenticate";
-    private ProgressDialog alert;
+    private ProgressDialog progressDialog;
     private RequestQueue requestQueue;
-
+    private AlertDialog alertDialog;
     private Button loginButton;
     private EditText idField;
     private EditText passwordField;
@@ -43,10 +39,10 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alert = new ProgressDialog(Login.this);
-                alert.setMessage("Aguarde...");
-                alert.setCancelable(false);
-                alert.show();
+                progressDialog = new ProgressDialog(Login.this);
+                progressDialog.setMessage("Aguarde...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
 
                 doLogin();
             }
@@ -85,13 +81,26 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(this, "Login Inválido", Toast.LENGTH_LONG).show();
-        alert.dismiss();
+//        Toast.makeText(this, "Login Inválido", Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
+
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("ERRO");
+        b.setMessage(error.toString());
+        b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = b.create();
+        alertDialog.show();
     }
 
     @Override
     public void onResponse(Object response) {
-        alert.dismiss();
+        progressDialog.dismiss();
         callDashboard();
     }
 }

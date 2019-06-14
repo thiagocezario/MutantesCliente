@@ -1,5 +1,7 @@
 package com.example.mutantescliente.Mutant;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -44,6 +46,8 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
 
     private Mutant mutant;
     private RequestQueue requestQueue;
+
+    private AlertDialog alertDialog;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
 
@@ -156,11 +160,26 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(this, "Algo deu errado!", Toast.LENGTH_LONG).show();
+        showAlert(error.toString());
     }
 
     @Override
     public void onResponse(Object response) {
-        Toast.makeText(this, "Deu boa!", Toast.LENGTH_LONG).show();
+        showAlert(response.toString());
+    }
+
+    private void showAlert(String message) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("ERRO");
+        b.setMessage(message);
+        b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = b.create();
+        alertDialog.show();
     }
 }

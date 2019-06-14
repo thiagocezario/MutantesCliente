@@ -1,21 +1,20 @@
 package com.example.mutantescliente.Search;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArraySet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.mutantescliente.List.List;
 import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
@@ -31,7 +30,8 @@ public class Search extends AppCompatActivity implements Response.Listener, Resp
     public static String searchUrl = "http://192.168.100.16:3000/search/mutant?skill=";
 
     RequestQueue requestQueue;
-    private ProgressDialog alert;
+    private ProgressDialog progressDialog;
+    private AlertDialog alertDialog;
 
     private ArrayList<Mutant> mutants = new ArrayList<>();
     private Button searchMutants;
@@ -54,10 +54,10 @@ public class Search extends AppCompatActivity implements Response.Listener, Resp
     }
 
     private void search() {
-        alert = new ProgressDialog(Search.this);
-        alert.setMessage("Aguarde...");
-        alert.setCancelable(false);
-        alert.show();
+        progressDialog = new ProgressDialog(Search.this);
+        progressDialog.setMessage("Aguarde...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         String skill = mutantAbility.getText().toString();
         String url = searchUrl.concat(skill);
@@ -73,13 +73,14 @@ public class Search extends AppCompatActivity implements Response.Listener, Resp
                     mutants = new ArrayList<>(Arrays.asList(gson.fromJson(response.toString(), Mutant[].class)));
                 }
 
-                alert.dismiss();
+                progressDialog.dismiss();
                 displayResults();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                alert.dismiss();
+                progressDialog.dismiss();
+                showAlert(error.toString());
             }
         });
 
@@ -94,11 +95,26 @@ public class Search extends AppCompatActivity implements Response.Listener, Resp
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(this, "Algo deu errado!", Toast.LENGTH_LONG).show();
+        showAlert(error.toString());
     }
 
     @Override
     public void onResponse(Object response) {
+        showAlert(response.toString());
+    }
 
+    private void showAlert(String message) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("ERRO");
+        b.setMessage(message);
+        b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = b.create();
+        alertDialog.show();
     }
 }

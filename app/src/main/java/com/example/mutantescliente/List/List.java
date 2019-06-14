@@ -19,13 +19,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.mutantescliente.Mutant.EditMutant;
 import com.example.mutantescliente.Mutant.Mutant;
 import com.example.mutantescliente.R;
-import com.example.mutantescliente.ServiceHandler.ServiceHandler;
 import com.example.mutantescliente.Volley.VolleyRequestQueue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,7 +109,7 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.search_list, null);
+            convertView = getLayoutInflater().inflate(R.layout.list_mutants, null);
 
             ImageView imageView = convertView.findViewById(R.id.mutantListPhoto);
             TextView textView = convertView.findViewById(R.id.mutantListName);

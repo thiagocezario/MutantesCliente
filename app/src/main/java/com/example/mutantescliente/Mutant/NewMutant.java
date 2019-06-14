@@ -35,10 +35,7 @@ import java.io.InputStream;
 
 public class NewMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
     public static String createUrl = "http://192.168.100.16:3000/register/mutant";
-    public static String updateUrl = "http://192.168.100.16:3000/update/mutant";
-    //"http://localhost:3000/register/mutant?name=Wolverine&photo=foto.png&skill1=Forte&skill2=bonito&skill3=rapido&id_user=1";
-    //"http://localhost:3000/update/mutant?name=GOHAN&skill1=JOGA%20AGUA&skill2=bebe%20leite&skill3=come%20bosta&photo=pe.png&id=1";
-    private TextView viewStatus;
+
     private ImageView mutantPhoto;
     private EditText mutantName;
     private EditText mutantFirstAbility;
@@ -61,7 +58,6 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
     }
 
     private void initialize() {
-        viewStatus = findViewById(R.id.viewStatus);
         mutantPhoto = findViewById(R.id.mutantPhoto);
         mutantName = findViewById(R.id.mutantName);
         mutantFirstAbility = findViewById(R.id.mutantFirstAbility);
@@ -71,10 +67,6 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
     }
 
     private void setupView() {
-        setupCreateMutantListeners();
-    }
-
-    private void setupCreateMutantListeners() {
         setPhotoOnClickListener();
         setSaveOnClickListener();
     }

@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class NewMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    public static String createUrl = "http://192.168.100.16:3000/register/mutant";
+    public static String createUrl = "http://192.168.43.7:3000/register/mutant";
 
     private ImageView mutantPhoto;
     private EditText mutantName;
@@ -135,7 +135,7 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
 
 
          if (mutant.photo != null) {
-            Bitmap bitmap = mutant.photo;
+            Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream);
             byte[] bitmapdata = stream.toByteArray();
@@ -153,7 +153,7 @@ public class NewMutant extends AppCompatActivity implements Response.Listener, R
         String ability2 = mutantSecondAbility.getText().toString();
         String ability3 = mutantThirdAbility.getText().toString();
 
-        Bitmap photo = mutantPhoto.getDrawingCache();
+        Drawable photo = mutantPhoto.getDrawable();
 
         if (mutant == null) {
             mutant = new Mutant();

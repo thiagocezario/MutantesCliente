@@ -29,7 +29,7 @@ public class Mutant implements Serializable {
     @SerializedName("skill3")
     public String skill3;
     @SerializedName("photo1")
-    public Bitmap photo;
+    public Drawable photo;
     @SerializedName("photo")
     public Object photo1;
     @SerializedName("user")
@@ -49,22 +49,22 @@ public class Mutant implements Serializable {
         skill2 = "";
         skill3 = "";
         creator = "";
-        photo = Bitmap.createBitmap(239, 130, Bitmap.Config.ARGB_8888);
+//        photo = Bitmap.createBitmap(239, 130, Bitmap.Config.ARGB_8888);
     }
 
     public void decodePhoto() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            Gson gson = new Gson();
-            String stringPhoto = gson.toJson(photo1);
-            jsonObject = new JSONObject(photo1.toString());
-            byte[] decodedByte = jsonObject.getString("data").getBytes();
-            Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-
-            photo = decodedImage;
-
-        } catch (JSONException e) {
-
-        }
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            Gson gson = new Gson();
+//            String stringPhoto = gson.toJson(photo1);
+//            jsonObject = new JSONObject(photo1.toString());
+//            byte[] decodedByte = jsonObject.getString("data").getBytes();
+//            Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//
+//            photo = decodedImage;
+//
+//        } catch (JSONException e) {
+//
+//        }
     }
 }

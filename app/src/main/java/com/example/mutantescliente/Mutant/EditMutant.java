@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +29,15 @@ import com.example.mutantescliente.Volley.VolleyRequestQueue;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class EditMutant extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    public static String updateUrl = "http://192.168.100.16:3000/update/mutant";
-    public static String deleteUrl = "http://192.168.100.16:3000/delete/mutant";
+    public static String updateUrl = "http://192.168.43.7:3000/update/mutant";
+    public static String deleteUrl = "http://192.168.43.7:3000/delete/mutant";
 
     private TextView createdBy;
     private ImageView mutantPhoto;
@@ -100,7 +104,7 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
         mutantThirdAbility.setText(mutant.skill3);
 
         if (mutant.photo != null) {
-            mutantPhoto.setImageBitmap(mutant.photo);
+            mutantPhoto.setImageDrawable(mutant.photo);
         }
     }
 
@@ -123,8 +127,9 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
     }
 
     private void deleteMutant() {
+        String url = deleteUrl.concat("?id=" + mutant.id);
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.DELETE, deleteUrl, new JSONObject(), new Response.Listener<JSONObject>() {
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.DELETE, url, new JSONObject(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 finish();
@@ -135,8 +140,34 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
     }
 
     private void editMutant(){
+
+        HashMap<String, String> params = new HashMap<String, String> ();
+
+        String name = mutantName.getText().toString();
+        String ability1 = mutantFirstAbility.getText().toString();
+        String ability2 = mutantSecondAbility.getText().toString();
+        String ability3 = mutantThirdAbility.getText().toString();
+
+        params.put("id", String.valueOf(mutant.id));
+        params.put("name", name);
+        params.put("skill1", ability1);
+        params.put("skill2", ability2);
+        params.put("skill3", ability3);
+        params.put("id_user", "1");
+
+        if (mutant.photo != null) {
+            Bitmap bitmap = ((BitmapDrawable)mutant.photo).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 0, stream);
+            byte[] bitmapdata = stream.toByteArray();
+            String encodedImage = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+            params.put("photo", encodedImage);
+        }
+        JSONObject jsonBody = new JSONObject(params);
+
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, updateUrl, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.POST, updateUrl, jsonBody, this, this);
+
 
         requestQueue.add(jsonRequest);
     }
@@ -175,7 +206,6 @@ public class EditMutant extends AppCompatActivity implements Response.Listener, 
 
     private void showAlert(String message) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("ERRO");
         b.setMessage(message);
         b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override

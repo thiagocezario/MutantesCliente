@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class List extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    private static String listUrl = "http://192.168.100.16:3000/list";
+    private static String listUrl = "http://192.168.43.7:3000/list";
 
     private ProgressDialog progressDialog;
     private AlertDialog alertDialog;
@@ -131,10 +131,10 @@ public class List extends AppCompatActivity implements Response.Listener, Respon
 
             ImageView imageView = convertView.findViewById(R.id.mutantListPhoto);
             TextView textView = convertView.findViewById(R.id.mutantListName);
+//
+//            mutants.get(position).decodePhoto();
 
-            mutants.get(position).decodePhoto();
-
-            imageView.setImageBitmap(mutants.get(position).photo);
+            imageView.setImageDrawable(mutants.get(position).photo);
             textView.setText(mutants.get(position).name);
 
             convertView.setOnClickListener(new View.OnClickListener() {

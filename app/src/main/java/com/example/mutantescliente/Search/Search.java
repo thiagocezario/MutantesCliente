@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Search extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
-    public static String searchUrl = "http://192.168.100.16:3000/search/mutant?skill=";
+    public static String searchUrl = "http://192.168.43.7:3000/search/mutant?skill=";
 
     RequestQueue requestQueue;
     private ProgressDialog progressDialog;

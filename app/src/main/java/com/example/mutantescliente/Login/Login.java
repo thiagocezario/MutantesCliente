@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,7 +31,7 @@ import java.util.Arrays;
 
 public class Login extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
 
-    private static String authenticateUrl = "http://192.168.100.16:3000/authenticate";
+    private static String authenticateUrl = "http://192.168.43.7:3000/authenticate";
     private ProgressDialog progressDialog;
     private RequestQueue requestQueue;
     private AlertDialog alertDialog;
@@ -81,7 +82,7 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         String url = authenticateUrl.concat("?login="+username+"&password="+password);
 
         requestQueue = VolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, new JSONObject(), this, this);
+        final ServiceHandler jsonRequest = new ServiceHandler(Request.Method.GET, url, userJson, this, this);
 
         requestQueue.add(jsonRequest);
     }
@@ -99,7 +100,6 @@ public class Login extends AppCompatActivity implements Response.Listener, Respo
         progressDialog.dismiss();
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("ERRO");
         b.setMessage("Usuário e/ou senha inválidos");
         b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override
